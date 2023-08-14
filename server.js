@@ -29,34 +29,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const database = {
-    users: [
-        {
-            id: '123',
-            name: 'yaseen',
-            email: 'yaseen@gmail.com',
-            password: 'cookies',
-            entries: 0,
-            joined: new Date()
-        },
-        {
-            id: '124',
-            name: 'naeem',
-            email: 'naeem@gmail.com',
-            password: 'bananas',
-            entries: 0,
-            joined: new Date()
-        }
-    ],
-    login: [
-        {
-            id: '987',
-            hash: '',
-            email: 'john@gmail.com'
-        }
-    ]
-}
-
 app.get('/', (req,res) =>{ res.send('success')})
 
 app.post('/signin', signin.handleSignIn(db, bcrypt))
@@ -71,7 +43,7 @@ app.put('/image', (req, res) => { image.handleImage(req, res, db)})
 
 
 
-app.listen(process.env.PORT || 3000, ()=>{
+app.listen(3000, ()=>{
     console.log('app is running on port 3000');
 })
 
