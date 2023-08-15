@@ -10,49 +10,52 @@ const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 
 const db = knex({
-    client: 'pg',
-    connection: {
-      host : '127.0.0.1',
-      port : 5432,
-      user : 'ubuntu',
-      password : 'password',
-      database : 'smartbrain'
-    }
-  });
-
-db.select('*').from('users').then(data => {
-    console.log(data);
+  client: 'pg',
+  connection: {
+    host: '127.0.0.1',
+    port: 5432,
+    user: 'ubuntu',
+    password: 'password',
+    database: 'smartbrain'
+  }
 });
 
-//refresh 
 const app = express();
+
+// CORS configuration to allow both HTTP and HTTPS origins
+const corsOptions = {
+  origin: [
+    'http://facerecognitionapp-8cad9a071f9a.herokuapp.com',
+    'https://facerecognitionapp-8cad9a071f9a.herokuapp.com'
+    // Add any other origins as needed
+  ],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(cors());
 
-app.get('/', (req,res) =>{ res.send('success')})
+app.get('/', (req, res) => {
+  res.send('success');
+});
 
-app.post('/signin', signin.handleSignIn(db, bcrypt))
+app.post('/signin', signin.handleSignIn(db, bcrypt));
 
-app.post('/register',(req,res) => {register.handleRegister(req, res, db, bcrypt)})
+app.post('/register', (req, res) => {
+  register.handleRegister(req, res, db, bcrypt);
+});
 
-app.get('/profile/:id',(req, res) => { profile.handleProfileGet(req, res, db)})
+app.get('/profile/:id', (req, res) => {
+  profile.handleProfileGet(req, res, db);
+});
 
-app.put('/image', (req, res) => { image.handleImage(req, res, db)})
+app.put('/image', (req, res) => {
+  image.handleImage(req, res, db);
+});
 
-
-
-
-
-app.listen(process.env.PORT || 3000, ()=>{
-    console.log('app is running on port 3000');
-})
-
-/*
-/ --> res = this is working
-/signin --> POST = success/fail
-/register --> POST = user
-/profile/:userId --> GET = user
-/image --> PUT --> USER
-
-
-*/
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`App is running on port ${PORT}`);
+});
