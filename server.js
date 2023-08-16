@@ -26,8 +26,8 @@ const app = express();
 const corsOptions = {
   origin: [
     'http://facerecognitionapp-8cad9a071f9a.herokuapp.com',
-    'https://facerecognitionapp-8cad9a071f9a.herokuapp.com'
-    // Add any other origins as needed
+    'https://facerecognitionapp-8cad9a071f9a.herokuapp.com',
+    'http://localhost:3000'
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
