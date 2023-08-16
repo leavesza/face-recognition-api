@@ -25,8 +25,7 @@ const app = express();
 // CORS configuration to allow both HTTP and HTTPS origins
 const corsOptions = {
   origin: [
-    'http://facerecognitionapp-8cad9a071f9a.herokuapp.com',
-    'https://facerecognitionapp-8cad9a071f9a.herokuapp.com',
+    'http://yaseenbakkie.s3-website-eu-west-1.amazonaws.com',
     'http://localhost:3000'
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
