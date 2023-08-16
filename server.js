@@ -23,9 +23,18 @@ const db = knex({
 const app = express();
 
 // CORS configuration to allow both HTTP and HTTPS origins
+const corsOptions = {
+  origin: [
+    'http://facerecognitionapp-8cad9a071f9a.herokuapp.com',
+    'https://facerecognitionapp-8cad9a071f9a.herokuapp.com'
+    // Add any other origins as needed
+  ],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
 
-
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
